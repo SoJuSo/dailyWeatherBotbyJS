@@ -1,4 +1,7 @@
-// import * from '.'
+import dotenv from 'dotenv'
+
+dotenv.config({path: '.env'});
+
 const { Client, GatewayIntentBits, Partials } = require('discord.js');
 const client = new Client({ 
     intents: [GatewayIntentBits.Guilds,
@@ -17,4 +20,4 @@ client.on('messageCreate', msg => { // message 이벤트시 msg (Discord.Message
   }
 });
 
-client.login('MTA2MDAxODkyMDE1MDUzMjE0Ng.GKEyt9.vCxh6c62X3l4xZwVwEUSHLOLK3-sS9iwX6stQo');
+client.login(process.env.TOKEN_);

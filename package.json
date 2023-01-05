@@ -1,4 +1,14 @@
 {
+  "name": "KweatherBot",
+  "version": "0.0.1",
+  "description": "",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"ERROR: no test exist\" && exit 1",
+    "start:dev": "nodemon ./bot.js"
+  },
+  "keywords": [],
+  "author": "KSJ_JOO",
   "type": "module",
   "dependencies": {
     "discord.js": "14.7.1",

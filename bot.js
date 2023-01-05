@@ -1,23 +1,27 @@
-import dotenv from 'dotenv'
+import { config } from "dotenv";
+import { Client, GatewayIntentBits } from "discord.js";
+import { REST } from "discord.js";
 
-dotenv.config({path: '.env'});
+config();
 
-const { Client, GatewayIntentBits, Partials } = require('discord.js');
-const client = new Client({ 
-    intents: [GatewayIntentBits.Guilds,
-        GatewayIntentBits.GuildMessages,
-        GatewayIntentBits.MessageContent,], 
-    partials: [Partials.Channel, Partials.Message] 
+const client = new Client({
+  intents:[
+    GatewayIntentBits.Guilds, 
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent
+  ],
+
+});
+const TOKEN = process.env.TOKEN_;
+
+client.login(TOKEN);
+
+client.on('ready', () => {
+  console.log(`${client.user.tag} has logged In!`)
 });
 
-client.on('ready', () => { // ready 이벤트시 실행할 함수
-  console.log(`Logged in as ${client.user.tag}!`); // client.user 는 자신의 유저 객체이고 tag 는 유저 객체의 프로퍼티 입니다.
+client.on('messageCreate', (msg) => {
+  console.log(msg.content)
+  console.log(msg.createdAt.toDateString())
+  console.log(msg.author.tag)
 });
-
-client.on('messageCreate', msg => { // message 이벤트시 msg (Discord.Message) 매개변수를 받고 실행할 함수
-  if (msg.content === '!ping') { // Discord.Message 객체의 content 프로퍼티가 'ping' 일 때
-    msg.reply('Pong!'); // reply 는 멘션 + , msg 로 출력됩니다.
-  }
-});
-
-client.login(process.env.TOKEN_);

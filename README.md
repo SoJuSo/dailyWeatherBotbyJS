@@ -4,3 +4,7 @@
 여름 이전 완성 예정
 <!-- 2023.03.02 desktop github check -->
 <!-- 2023.03.02 Win NoteBook github check -->
+
+---
+꽤 오래 지나긴 했지만... 이제는 역량이 되지 않을까?
+오픈API 신청 완료!

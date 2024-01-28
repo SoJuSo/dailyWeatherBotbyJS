@@ -1,9 +1,9 @@
-import { config } from "dotenv";
+import "dotenv/config";
 import { Client, GatewayIntentBits } from "discord.js";
 
-config();
+// const prefix = "!";
 
-const prefix = "!";
+const { TOKEN } = process.env;
 
 const client = new Client({
   intents: [
@@ -13,39 +13,50 @@ const client = new Client({
   ],
 });
 
-const TOKEN = process.env.TOKEN_;
-
 client.on("ready", () => {
   console.log(`${client.user.tag} has logged In!`);
 });
 
 // client.on("messageCreate", async (msg) => {
-//   console.log(msg.content);
-//   console.log(msg.createdAt.toDateString());
-//   console.log(msg.author.tag);
-
+//   if (msg.author.bot) return;
+//   console.log(msg);
+//   // console.log(msg.content);
+//   // console.log(msg.createdAt.toDateString());
+//   // console.log(msg.author.tag);
+//   msg.reply(`메아리입니다. ${msg.content}`);
 //   // await interaction.reply("메세지!");
 // });
 
-// client.on("interactionCreate", async (interaction) => {
-//   console.log(interaction);
-//   if (!interaction.isChatInputCommand()) return;
-
-//   if (interaction.commandName === "ping") {
+// module.exports = {
+//   data: new SlashCommandBuilder().setName("ping").setDescription("Replies with Pong!"),
+//   async execute(interaction) {
 //     await interaction.reply("Pong!");
-//   }
-// });
+//   },
+// };
 
-client.on("messageCreate", (msg) => {
-  if (msg.author.bot) return;
-  if (!msg.content.startsWith(prefix)) return;
-  if (msg.content.slice(0, prefix.length) !== prefix) return;
+client.on("interactionCreate", async (interaction) => {
+  console.log(interaction);
+  if (!interaction.isChatInputCommand()) return;
 
-  const args = msg.content.slice(prefix.length).trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
+  if (interaction.commandName === "ping") {
+    await interaction.reply("Pong!");
+  }
 
-  const cmd = client.commands.get(command);
-  if (cmd) cmd.run(client, msg, args);
+  if (interaction.commandName === "헬로") {
+    await interaction.reply("하이!");
+  }
 });
+
+// client.on("messageCreate", (msg) => {
+//   if (msg.author.bot) return;
+//   if (!msg.content.startsWith(prefix)) return;
+//   if (msg.content.slice(0, prefix.length) !== prefix) return;
+
+//   const args = msg.content.slice(prefix.length).trim().split(/ +/g);
+//   const command = args.shift().toLowerCase();
+
+//   const cmd = client.commands.get(command);
+//   if (cmd) cmd.run(client, msg, args);
+// });
 
 client.login(TOKEN);

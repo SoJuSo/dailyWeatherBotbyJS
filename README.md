@@ -13,3 +13,11 @@
 
 --- 2023.11.19 수정
 K-age-calculator 완성 이후 진행 예정, API 키 확인하기
+
+--- 2024.01.28
+IP 데이터를 기반으로한 default 날씨 실패
+하려고 했던 이유
+-> 사용자가 별다른 입력 없이 할 수 있도록
+실패한 이유
+-> 디스코드 봇이 사용자의 IP를 가져올 수 있는 방법은 없어서
+https://www.reddit.com/r/discordapp/comments/18hg5d5/can_bot_get_users_ip/

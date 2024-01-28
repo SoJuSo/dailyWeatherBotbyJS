@@ -1,5 +1,6 @@
 import "dotenv/config";
-import { Client, GatewayIntentBits } from "discord.js";
+import { Client, EmbedBuilder, GatewayIntentBits } from "discord.js";
+import { getWeather } from "./api.js";
 
 // const prefix = "!";
 
@@ -35,15 +36,33 @@ client.on("ready", () => {
 // };
 
 client.on("interactionCreate", async (interaction) => {
-  console.log(interaction);
+  // console.log(interaction);
+
   if (!interaction.isChatInputCommand()) return;
 
-  if (interaction.commandName === "ping") {
-    await interaction.reply("Pong!");
-  }
+  // if (interaction.commandName === "ping") {
+  //   await interaction.reply("Pong!");
+  // }
 
-  if (interaction.commandName === "헬로") {
-    await interaction.reply("하이!");
+  // if (interaction.commandName === "헬로") {
+  //   await interaction.reply("하이!");
+  // }
+  if (interaction.commandName === "날씨") {
+    console.log(interaction.createdAt);
+    const city = interaction.options.get("도시").value;
+    console.log(city);
+
+    // await interaction.reply(`${city}의 날씨 안내해드리겠습니다!`);
+    const data = await getWeather(city);
+    const temperature = await data
+      .map((val) => {
+        if (val.category === "T1H") return val.obsrValue;
+      })
+      .join("");
+    const embed = new EmbedBuilder()
+      .setTitle(`${city}의 현재 날씨입니다.`)
+      .addFields({ name: "온도", value: `${temperature}`, inline: true });
+    await interaction.reply({ embeds: [embed] });
   }
 });
 

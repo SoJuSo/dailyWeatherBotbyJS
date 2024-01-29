@@ -35,19 +35,37 @@ const getTime = () => {
 
 export const getWeather = async (city) => {
   const time = getTime();
+  console.log(time);
+  // console.log(time.getDate() + 5, time.getDate() - 1);
+  // console.log(time.getDate(), time.getHours());
+  // 예외처리 Todo 0000 ~ 0030은 전날로 해줘야하지않은가 완료
+  // 연, 월이 바뀔 경우 처리
+  console.log(time.getHours());
+  const targetTime = String(
+    time.getMinutes() > 40 ? time.getHours() : time.getHours() - 1
+  ).padStart(2, "0");
+
   const targetDate =
-    time.getFullYear() + String(Number(time.getMonth() + 1)).padStart(2, "0") + time.getDate();
+    Number(targetTime) > -1
+      ? time.getFullYear() + String(Number(time.getMonth() + 1)).padStart(2, "0") + time.getDate()
+      : time.getFullYear() +
+        String(Number(time.getMonth() + 1)).padStart(2, "0") +
+        time.getDate() -
+        1;
+
+  // console.log(targetDate, targetTime);
   const cord = filterlist[city];
   try {
     const res = await fetch(
-      `${BASE_URL}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&dataType=JSON&base_date=${targetDate}&base_time=${String(
-        time.getHours()
-      ).padStart(2, "0")}00&nx=${cord.x}&ny=${cord.y}`
+      `${BASE_URL}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&dataType=JSON&base_date=${targetDate}&base_time=${
+        Number(targetTime) > -1 ? targetTime : 23
+      }00&nx=${cord.x}&ny=${cord.y}`
     );
     const data = await res.json();
     const items = await data.response.body.items.item;
-    return items;
+    console.log(items);
+    return { items, time: targetTime };
   } catch (error) {
-    console.error("Error fetching IP address:", error);
+    return { items: null, time: null };
   }
 };

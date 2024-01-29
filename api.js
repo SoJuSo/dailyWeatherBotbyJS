@@ -21,11 +21,28 @@ const filterlist = {
   제주특별자치도: { x: 52, y: 38 },
 };
 
+const getTime = () => {
+  // 1. 현재 시간(Locale)
+  const curr = new Date();
+  // 2. UTC 시간 계산
+  const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
+  // 3. UTC to KST (UTC + 9시간)
+  const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+  const kr_curr = new Date(utc + KR_TIME_DIFF);
+  // 4. KST 반환
+  return kr_curr;
+};
+
 export const getWeather = async (city) => {
+  const time = getTime();
+  const targetDate =
+    time.getFullYear() + String(Number(time.getMonth() + 1)).padStart(2, "0") + time.getDate();
   const cord = filterlist[city];
   try {
     const res = await fetch(
-      `${BASE_URL}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&dataType=JSON&base_date=20240128&base_time=2200&nx=${cord.x}&ny=${cord.y}`
+      `${BASE_URL}?serviceKey=${SERVICE_KEY}&pageNo=1&numOfRows=10&dataType=JSON&base_date=${targetDate}&base_time=${String(
+        time.getHours()
+      ).padStart(2, "0")}00&nx=${cord.x}&ny=${cord.y}`
     );
     const data = await res.json();
     const items = await data.response.body.items.item;

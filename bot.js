@@ -20,9 +20,7 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === "날씨") {
-    console.log(interaction.createdAt);
     const city = interaction.options.get("도시").value;
-    console.log(city);
 
     const data = await getWeather(city);
     const temperature = await data
@@ -32,7 +30,7 @@ client.on("interactionCreate", async (interaction) => {
       .join("");
     const embed = new EmbedBuilder()
       .setTitle(`${city}의 현재 날씨입니다.`)
-      .addFields({ name: "온도", value: `${temperature}`, inline: true });
+      .addFields({ name: "🌡온도", value: `${temperature} ℃`, inline: true });
     await interaction.reply({ embeds: [embed] });
   }
 });

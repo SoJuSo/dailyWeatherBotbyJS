@@ -35,7 +35,7 @@ const getTime = () => {
 
 export const getWeather = async (city) => {
   const time = getTime();
-  console.log(time);
+  console.log("시스템 시간 : ", time);
   // console.log(time.getDate() + 5, time.getDate() - 1);
   // console.log(time.getDate(), time.getHours());
   // 예외처리 Todo 0000 ~ 0030은 전날로 해줘야하지않은가 완료
@@ -45,15 +45,19 @@ export const getWeather = async (city) => {
     time.getMinutes() > 40 ? time.getHours() : time.getHours() - 1
   ).padStart(2, "0");
 
+  console.log(time.getDate());
+
   const targetDate =
     Number(targetTime) > -1
-      ? time.getFullYear() + String(Number(time.getMonth() + 1)).padStart(2, "0") + time.getDate()
+      ? time.getFullYear() +
+        String(Number(time.getMonth() + 1)).padStart(2, "0") +
+        String(Number(time.getDate())).padStart(2, "0")
       : time.getFullYear() +
         String(Number(time.getMonth() + 1)).padStart(2, "0") +
         time.getDate() -
         1;
 
-  // console.log(targetDate, targetTime);
+  console.log(targetDate, targetTime);
   const cord = filterlist[city];
   try {
     const res = await fetch(

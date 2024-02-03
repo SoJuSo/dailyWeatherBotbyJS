@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { Client, EmbedBuilder, GatewayIntentBits } from "discord.js";
-import { getWeather } from "./api.js";
+import { getCurrentWeather } from "./api/api.js";
 
 const { TOKEN } = process.env;
 
@@ -20,18 +20,18 @@ client.on("interactionCreate", async (interaction) => {
   if (!interaction.isChatInputCommand()) return;
 
   if (interaction.commandName === "날씨") {
-    const city = interaction.options.get("도시").value;
+    const city = interaction.options.get("광역시도").value;
 
-    const data = await getWeather(city);
-    console.log(data.time);
-    if (data.items) {
-      const temperature = await data.items
+    const weatherData = await getCurrentWeather(city);
+
+    if (weatherData.items) {
+      const temperature = await weatherData.items
         .map((val) => {
           if (val.category === "T1H") return val.obsrValue;
         })
         .join("");
       const embed = new EmbedBuilder()
-        .setTitle(`${city}의 날씨입니다.`)
+        .setTitle(`현재 ${city}의 날씨입니다.`)
         .addFields({ name: "🌡온도", value: `${temperature} ℃`, inline: true });
       await interaction.reply({ embeds: [embed] });
     } else {

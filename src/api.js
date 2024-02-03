@@ -30,12 +30,14 @@ const getTime = () => {
   const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
   const kr_curr = new Date(utc + KR_TIME_DIFF);
   // 4. KST 반환
+  console.log(kr_curr);
   return kr_curr;
 };
 
 export const getWeather = async (city) => {
   const time = getTime();
   console.log("시스템 시간 : ", time);
+  console.log(time.getTime(), time.getDate());
   // console.log(time.getDate() + 5, time.getDate() - 1);
   // console.log(time.getDate(), time.getHours());
   // 예외처리 Todo 0000 ~ 0030은 전날로 해줘야하지않은가 완료
@@ -67,7 +69,7 @@ export const getWeather = async (city) => {
     );
     const data = await res.json();
     const items = await data.response.body.items.item;
-    console.log(items);
+    // console.log(items);
     return { items, time: targetTime };
   } catch (error) {
     return { items: null, time: null };

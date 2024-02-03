@@ -5,7 +5,7 @@
   "main": "bot.js",
   "scripts": {
     "test": "echo \"ERROR: no test exist\" && exit 1",
-    "start": "nodemon ./bot.js"
+    "start": "nodemon src/bot.js"
   },
   "keywords": [],
   "author": "KSJ_JOO",

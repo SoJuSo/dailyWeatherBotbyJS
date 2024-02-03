@@ -142,3 +142,6 @@ dist
 .svelte-kit
 
 # End of https://www.toptal.com/developers/gitignore/api/node
+
+# 용량 많은 데이터 파일은 업로드 하지 않도록 gitignore 추가
+data.xlsx

@@ -9,8 +9,8 @@ const commands = [
     description: "위치에 따라 날씨를 알려드려요.",
     options: [
       {
-        name: "도시",
-        description: "도시를 선택하세요.",
+        name: "광역시도",
+        description: "광역시도를 선택하세요.",
         type: ApplicationCommandOptionType.String,
         required: true,
         choices: [

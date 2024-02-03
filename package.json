@@ -2,7 +2,7 @@
   "name": "kweatherbot",
   "version": "0.0.1",
   "description": "",
-  "main": "bot.js",
+  "main": "src/bot.js",
   "scripts": {
     "test": "echo \"ERROR: no test exist\" && exit 1",
     "start": "nodemon src/bot.js"

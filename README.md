@@ -21,3 +21,7 @@ IP 데이터를 기반으로한 default 날씨 실패
 실패한 이유
 -> 디스코드 봇이 사용자의 IP를 가져올 수 있는 방법은 없어서
 https://www.reddit.com/r/discordapp/comments/18hg5d5/can_bot_get_users_ip/
+
+--- 2024.04.21
+차주에 다시 코드 로그 살피기 <br />
+호스팅 방향성은 아래 블로그 참조 https://blog.naver.com/dnsjdbstlr/222289626549

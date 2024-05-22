@@ -6,7 +6,7 @@
 // 서버 배포
 import { EmbedBuilder } from "discord.js";
 
-export const embedGenerator = (city, cityDetail, item) => {
+export const embedGenerator = (city, item) => {
   const groupedData = item.reduce((acc, curr) => {
     const { category, ...rest } = curr;
     if (!acc[category]) {
@@ -47,8 +47,12 @@ export const embedGenerator = (city, cityDetail, item) => {
     }
   };
 
+  console.log(city);
+
   const embed = new EmbedBuilder()
-    .setTitle(`현재 ${cityDetail ? `${city} ${cityDetail}` : `${city}`}의 날씨입니다.`)
+    .setTitle(
+      `${!city.includes("_") ? `${city}` : `${city.split("_")[0] + " " + city.split("_")[1]}`} 날씨`
+    )
     .addFields(
       { name: "🌡온도", value: `${temperature} ℃`, inline: true },
       { name: "⛅강수 형태  ", value: `${PTYdefine(precipitation)}`, inline: true },
